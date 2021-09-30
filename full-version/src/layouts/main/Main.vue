@@ -11,7 +11,7 @@
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'no-scroll': isAppPage}]">
 
-    <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical' && verticalNavMenuWidth == 'default')" />
+    <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical' && verticalNavMenuWidth === 'default')" />
 
     <the-customizer
       v-if                    = "!disableCustomizer"
@@ -252,12 +252,12 @@ export default {
       this.routeTitle = title
     },
     updateNavbar(val) {
-      if (val == "static") this.updateNavbarColor(this.isThemeDark ? "#10163a" : "#fff")
+      if (val === "static") this.updateNavbarColor(this.isThemeDark ? "#10163a" : "#fff")
       this.navbarType = val
     },
     updateNavbarColor(val) {
       this.navbarColor = val
-      if (val == "#fff") this.isNavbarDark = false
+      if (val === "#fff") this.isNavbarDark = false
       else this.isNavbarDark = true
     },
     updateFooter(val) {
@@ -280,7 +280,7 @@ export default {
     }
   },
   created() {
-    const color = this.navbarColor == "#fff" && this.isThemeDark ? "#10163a" : this.navbarColor
+    const color = this.navbarColor === "#fff" && this.isThemeDark ? "#10163a" : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
 

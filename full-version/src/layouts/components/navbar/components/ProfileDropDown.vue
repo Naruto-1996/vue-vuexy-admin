@@ -8,8 +8,10 @@
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
 
-      <div class="con-img ml-3">
-        <img v-if="activeUserInfo.photoURL" key="onlineImg" :src="activeUserInfo.photoURL" alt="user-img" width="40" height="40" class="rounded-full shadow-md cursor-pointer block" />
+
+      <div class="relative inline-flex">
+        <vs-avatar v-if="activeUser.photoURL" class="m-0 border-2 border-solid border-white" :src="activeUser.photoURL" size="40px"/>
+        <div class="h-3 w-3 border-white border border-solid rounded-full absolute right-0 bottom-0" :class="'bg-' + getStatusColor(true)"></div>
       </div>
 
       <vs-dropdown-menu class="vx-navbar-dropdown">
@@ -77,7 +79,25 @@ export default {
   computed: {
     activeUserInfo() {
       return this.$store.state.AppActiveUser
-    }
+    },
+    activeUser() {
+      return this.$store.state.AppActiveUser
+    },
+    getStatusColor() {
+      return (isActiveUser) => {
+        const userStatus = this.getUserStatus(isActiveUser)
+
+        if (userStatus == "online") {
+          return "success"
+        } else if (userStatus == "do not disturb") {
+          return "danger"
+        } else if (userStatus == "away") {
+          return "warning"
+        } else {
+          return "grey"
+        }
+      }
+    },
   },
   methods: {
     logout() {
@@ -105,6 +125,10 @@ export default {
 
         // This is just for demo Purpose. If user clicks on logout -> redirect
         this.$router.push('/pages/login').catch(() => {})
+    },
+    getUserStatus(isActiveUser) {
+      // return "active"
+      return (isActiveUser) ? this.$store.state.AppActiveUser.status : this.contacts[this.activeChatUser].status
     },
   }
 }
