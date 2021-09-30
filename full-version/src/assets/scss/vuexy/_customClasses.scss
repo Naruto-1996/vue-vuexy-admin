@@ -255,6 +255,8 @@
 // ======================================================================================
 
 // Remove padding and border from default dropDown - Used in TheNavbar
+
+// 这里我加了一个display none 让小箭头不显示
 .dropdown-custom {
   .vs-dropdown--custom {
     padding: 0 !important;
@@ -268,6 +270,7 @@
   .vs-dropdown--menu--after {
     background: rgba(var(--vs-primary), 1) !important;
     right: 1.6rem !important;
+    display: none;
   }
 }
 
